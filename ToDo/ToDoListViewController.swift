@@ -15,7 +15,7 @@ class ToDoListViewController: UITableViewController {
         // Do any additional setup after loading the view.
     }
 
-    //MARK:- TableView Datasource Methods
+    //MARK - TableView Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemArray.count
@@ -26,6 +26,41 @@ class ToDoListViewController: UITableViewController {
         cell.textLabel?.text = itemArray[indexPath.row]
         return cell
     }
+    
+    //MARK - Tableview delegate methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(itemArray[indexPath.row])
+        
+        if (tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark){
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        }
+        else{
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    //MARK - Add New Items
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: "Add new item", message: " ", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add item", style: .default){
+            (action) in
+        }
+        
+        alert.addTextField{ (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
 }
 
 
