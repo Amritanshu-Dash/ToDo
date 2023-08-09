@@ -14,6 +14,7 @@
 		855B33932A8102B800D47DD7 /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 855B33912A8102B800D47DD7 /* ToDo.xcdatamodeld */; };
 		855B33952A8102B900D47DD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 855B33942A8102B900D47DD7 /* Assets.xcassets */; };
 		855B33982A8102B900D47DD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 855B33962A8102B900D47DD7 /* LaunchScreen.storyboard */; };
+		855B33A62A83942E00D47DD7 /* CategoryViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855B33A52A83942E00D47DD7 /* CategoryViewControllerTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		855B33942A8102B900D47DD7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		855B33972A8102B900D47DD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		855B33992A8102B900D47DD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		855B33A52A83942E00D47DD7 /* CategoryViewControllerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewControllerTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		855B33A22A8227C800D47DD7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				855B33A52A83942E00D47DD7 /* CategoryViewControllerTableViewController.swift */,
 				855B338C2A8102B800D47DD7 /* ToDoListViewController.swift */,
 			);
 			path = Controllers;
@@ -173,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				855B33A62A83942E00D47DD7 /* CategoryViewControllerTableViewController.swift in Sources */,
 				855B338D2A8102B800D47DD7 /* ToDoListViewController.swift in Sources */,
 				855B33892A8102B800D47DD7 /* AppDelegate.swift in Sources */,
 				855B338B2A8102B800D47DD7 /* SceneDelegate.swift in Sources */,
