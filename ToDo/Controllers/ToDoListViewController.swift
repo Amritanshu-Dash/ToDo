@@ -11,12 +11,12 @@ class ToDoListViewController: UITableViewController {
 
     var itemArray = [Item]()
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext //Data base link
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        loadItems()
+//        loadItems()
         
     }
 
@@ -59,8 +59,9 @@ class ToDoListViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add item", style: .default){ (action) in
             
-            let newItem = Item()
+            let newItem = Item(context: self.context)
             newItem.title = textField.text!
+            newItem.done = false
             self.itemArray.append(newItem)
             
             self.saveItems()
@@ -78,11 +79,8 @@ class ToDoListViewController: UITableViewController {
     
     func saveItems(){
         
-        let encoder = PropertyListEncoder()
-        
         do{
-            let data = try encoder.encode(itemArray)
-            try data.write(to: dataFilePath!)
+            try context.save()
         }
         catch{
             print("Error, \(error)")
@@ -91,17 +89,17 @@ class ToDoListViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func loadItems(){
-        if let data = try?Data(contentsOf: dataFilePath!){
-            let decoder = PropertyListDecoder()
-            do {
-                itemArray = try decoder.decode([Item].self, from: data)
-            }
-            catch{
-                print(error)
-            }
-        }
-    }
+//    func loadItems(){
+//        if let data = try?Data(contentsOf: dataFilePath!){
+//            let decoder = PropertyListDecoder()
+//            do {
+//                itemArray = try decoder.decode([Item].self, from: data)
+//            }
+//            catch{
+//                print(error)
+//            }
+//        }
+//    }
 }
 
 
