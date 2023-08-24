@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Category View Controller Table View Controller-->
+        <!--ToDo-->
         <scene sceneID="IQn-m2-1d8">
             <objects>
                 <tableViewController id="gGa-VZ-mVd" customClass="CategoryViewControllerTableViewController" customModule="ToDo" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,7 +30,15 @@
                             <outlet property="delegate" destination="gGa-VZ-mVd" id="cAX-dx-gPi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="WAO-G2-045"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="ToDo" id="WAO-G2-045">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="P9I-UY-NBx">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="gGa-VZ-mVd" id="e2t-WE-NN9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="7dn-QP-JCq" kind="show" identifier="goToItems" id="HD4-Ob-24c"/>
                     </connections>
@@ -39,7 +47,7 @@
             </objects>
             <point key="canvasLocation" x="524" y="-11"/>
         </scene>
-        <!--ToDo-->
+        <!--Items-->
         <scene sceneID="Tzi-Cx-DAt">
             <objects>
                 <tableViewController id="7dn-QP-JCq" customClass="ToDoListViewController" customModule="ToDo" customModuleProvider="target" sceneMemberID="viewController">
@@ -70,7 +78,7 @@
                             <outlet property="delegate" destination="7dn-QP-JCq" id="o1H-kQ-Z8O"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ToDo" id="JkS-AS-3NF">
+                    <navigationItem key="navigationItem" title="Items" id="JkS-AS-3NF">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="NXj-0M-sQ1">
                             <color key="tintColor" systemColor="systemMintColor"/>
                             <connections>
