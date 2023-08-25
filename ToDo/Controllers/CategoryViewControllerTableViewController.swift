@@ -8,30 +8,28 @@
 import UIKit
 import RealmSwift
 
-class CategoryViewControllerTableViewController: UITableViewController {
+class CategoryViewControllerTableViewController: SwipeTableViewController{
 
-    let realm = try! Realm() // possibly a bad code not certainly
-    var categories: Results<Category>?
+    let realm = try! Realm() // possibly a bad code not certainly // realm access point
+    var categories: Results<Category>?// collection of results of category objects of optional type
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
-        
     }
 
 // MARK: - TableView Datasource Methods
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories added yet!"
-        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        cell.textLabel?.text = categories?[indexPath.row].name ?? "No categories added yet!"
         return cell
     }
+    
 //    MARK: - Tableview Delegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToItems", sender: self)
@@ -65,9 +63,24 @@ class CategoryViewControllerTableViewController: UITableViewController {
     
     func loadCategories(){
         
-        categories = realm.objects(Category.self)
+        categories = realm.objects(Category.self) //fetch all the objects that belong to the category data type
         tableView.reloadData()
     }
+     // MARK: - delete data
+    override func updateModel(at indexPath: IndexPath){
+        
+        if let categoryForDeletion = self.categories?[indexPath.row]{
+            do{
+                try self.realm.write{
+                    self.realm.delete(categoryForDeletion)
+                }
+            }
+            catch{
+                print(error)
+            }
+        }
+    }
+    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
     
         var textField = UITextField()
@@ -77,6 +90,7 @@ class CategoryViewControllerTableViewController: UITableViewController {
             
             let newCategory = Category()
             newCategory.name = textField.text!
+            
             self.save(category: newCategory)
         }
         
@@ -90,3 +104,5 @@ class CategoryViewControllerTableViewController: UITableViewController {
     }
     
 }
+
+

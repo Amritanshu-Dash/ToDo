@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class ToDoListViewController: UITableViewController{
+class ToDoListViewController: SwipeTableViewController{
 
     var todoItems: Results<Item>?
     let realm = try! Realm()
@@ -32,7 +32,7 @@ class ToDoListViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let items = todoItems?[indexPath.row]{
             
@@ -82,6 +82,7 @@ class ToDoListViewController: UITableViewController{
                     try self.realm.write{
                         let newItem = Item()
                         newItem.title = textField.text!
+                        newItem.dateCreated = Date()
                         currentCategory.items .append(newItem)
                     }
                 }
@@ -109,6 +110,20 @@ class ToDoListViewController: UITableViewController{
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
     }
+    
+    override func updateModel(at indexPath: IndexPath){
+        
+        if let items = todoItems?[indexPath.row]{
+            do {
+                try realm.write{
+                realm.delete(items)
+                }
+            }
+            catch{
+                print(error)
+            }
+        }
+    }
         
 }
 
@@ -117,7 +132,8 @@ extension ToDoListViewController: UISearchBarDelegate{
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true) // specify to search or ffilter on the basis of what user has specified ..
+        tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
